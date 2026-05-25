@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Simple CRUD App</title>
+</head>
+<body>
+<h1>MySQL CRUD Example</h1>
+<input type="text" id="nama_pelanggan" placeholder="Name">
+<input type="text" id="email" placeholder="Email">
+<button onclick="addpelanggan()">Add pelanggan</button>
+<h2>Pelanggan</h2>
+<button onclick="loadpelanggan()">Load pelanggan</button>
+<ul id="pelangganList"></ul>
+<script>
+    async function addpelanggan() {
+const nama_pelanggan = document.getElementById('nama_pelanggan').value;
+const email = document.getElementById('email').value;
+await fetch('/addpelanggan', {
+method: 'POST',
+headers: {
+'Content-Type': 'application/json'
+},
+body: JSON.stringify({
+nama_pelanggan,
+email
+})
+});
+alert('pelanggan Added');
+loadpelanggan();
+}
+</script>
