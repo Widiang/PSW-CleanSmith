@@ -1,31 +1,581 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Simple CRUD App</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CleanSmith</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+
+        *{
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body{
+            background: #eef5ff;
+        }
+
+        /* NAVBAR */
+        .navbar-custom{
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .navbar-brand{
+            font-weight: 700;
+            color: #0d6efd !important;
+            font-size: 28px;
+        }
+
+        .nav-link{
+            color: #333 !important;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-link:hover{
+            color: #0d6efd !important;
+        }
+
+        /* HERO */
+        .hero{
+            min-height: 500px;
+            background: linear-gradient(
+                135deg,
+                #0d6efd,
+                #5da9ff
+            );
+
+            border-radius: 0 0 40px 40px;
+            color: white;
+            padding: 80px 0;
+        }
+
+        .hero h1{
+            font-size: 60px;
+            font-weight: 700;
+        }
+
+        .hero p{
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .hero-img{
+            width: 100%;
+        }
+
+        .btn-custom{
+            background: white;
+            color: #0d6efd;
+            font-weight: 600;
+            border-radius: 30px;
+            padding: 12px 30px;
+            transition: 0.3s;
+        }
+
+        .btn-custom:hover{
+            background: #dbe9ff;
+        }
+
+        /* SECTION */
+        .section-title{
+            font-weight: 700;
+            color: #0d6efd;
+            margin-bottom: 20px;
+        }
+
+        .section-sub{
+            color: #666;
+        }
+
+        /* ABOUT */
+        .about-img{
+            border-radius: 20px;
+            width: 100%;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        /* CARD */
+        .feature-card{
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: 0.3s;
+            height: 100%;
+        }
+
+        .feature-card:hover{
+            transform: translateY(-10px);
+        }
+
+        .feature-icon{
+            font-size: 50px;
+            color: #0d6efd;
+        }
+
+        /* CONTACT */
+        .contact-box{
+            background: white;
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .social-icon{
+            font-size: 35px;
+            color: #0d6efd;
+            margin: 10px;
+            transition: 0.3s;
+        }
+
+        .social-icon:hover{
+            color: #0047b3;
+        }
+
+        /* STORE */
+        .store-box{
+            background: linear-gradient(
+                135deg,
+                #0d6efd,
+                #5da9ff
+            );
+
+            color: white;
+            border-radius: 30px;
+            padding: 50px;
+        }
+
+        .map-img{
+            width: 100%;
+            border-radius: 20px;
+        }
+
+        footer{
+            background: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: 50px;
+            color: #666;
+        }
+
+    </style>
+
 </head>
+
 <body>
-<h1>MySQL CRUD Example</h1>
-<input type="text" id="nama_pelanggan" placeholder="Name">
-<input type="text" id="email" placeholder="Email">
-<button onclick="addpelanggan()">Add pelanggan</button>
-<h2>Pelanggan</h2>
-<button onclick="loadpelanggan()">Load pelanggan</button>
-<ul id="pelangganList"></ul>
-<script>
-    async function addpelanggan() {
-const nama_pelanggan = document.getElementById('nama_pelanggan').value;
-const email = document.getElementById('email').value;
-await fetch('/addpelanggan', {
-method: 'POST',
-headers: {
-'Content-Type': 'application/json'
-},
-body: JSON.stringify({
-nama_pelanggan,
-email
-})
-});
-alert('pelanggan Added');
-loadpelanggan();
-}
-</script>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-custom py-3">
+
+    <div class="container">
+
+        <a class="navbar-brand" href="#">
+            CleanSmith
+        </a>
+
+        <button class="navbar-toggler"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+        <div class="collapse navbar-collapse"
+            id="navbarNav">
+
+            <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        Home
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        Service
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        History
+                    </a>
+                </li>
+
+                <li class="nav-item" id="loginNav">
+
+                    <a class="nav-link"
+                        href="/login.html">
+
+                        Login
+
+                    </a>
+
+                </li>
+
+                <li class="nav-item dropdown d-none"
+                    id="profileNav">
+
+                    <a class="nav-link dropdown-toggle d-flex align-items-center gap-2"
+                        href="#"
+                        role="button"
+                        data-bs-toggle="dropdown">
+
+                        <i class="bi bi-person-circle fs-4"></i>
+
+                        <span id="navbarUsername">
+                            User
+                        </span>
+
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-end">
+
+                        <li>
+
+                            <a class="dropdown-item"
+                                href="/profile.html">
+
+                                Profile
+
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <button
+                                class="dropdown-item text-danger"
+                                onclick="logout()">
+
+                                Logout
+
+                            </button>
+
+                        </li>
+
+                    </ul>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+
+    <div class="container">
+
+        <div class="row align-items-center">
+
+            <div class="col-md-6">
+
+                <h1>
+                    Premium Shoe Cleaning Service
+                </h1>
+
+                <p class="mt-4">
+
+                    Solusi terbaik untuk sepatu bersih,
+                    wangi, dan seperti baru lagi.
+
+                </p>
+
+                <button class="btn btn-custom mt-3">
+                    Order Now
+                </button>
+
+            </div>
+
+            <div class="col-md-6 text-center">
+
+                <img
+                    src="https://cdn-icons-png.flaticon.com/512/2589/2589594.png"
+                    class="hero-img">
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ABOUT -->
+<section class="py-5">
+
+    <div class="container">
+
+        <div class="row align-items-center">
+
+            <div class="col-md-6">
+
+                <img
+                    src="https://images.unsplash.com/photo-1542291026-7eec264c27ff"
+                    class="about-img">
+
+            </div>
+
+            <div class="col-md-6">
+
+                <h2 class="section-title">
+                    ABOUT US
+                </h2>
+
+                <p class="section-sub">
+
+                    CleanSmith adalah jasa cuci sepatu profesional
+                    yang memberikan pelayanan terbaik dengan
+                    teknologi cleaning modern dan tenaga ahli
+                    berpengalaman.
+
+                </p>
+
+                <p class="section-sub">
+
+                    Kami menjaga sepatu tetap bersih,
+                    nyaman dipakai, dan tampak seperti baru.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- WHY CHOOSE US -->
+<section class="py-5">
+
+    <div class="container">
+
+        <h2 class="section-title text-center">
+            WHY CHOOSE US
+        </h2>
+
+        <div class="row g-4 mt-4">
+
+            <div class="col-md-3">
+
+                <div class="feature-card">
+
+                    <i class="bi bi-stars feature-icon"></i>
+
+                    <h4 class="mt-3">
+                        Premium Quality
+                    </h4>
+
+                    <p>
+                        Hasil bersih maksimal dan terpercaya.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <div class="feature-card">
+
+                    <i class="bi bi-lightning-charge feature-icon"></i>
+
+                    <h4 class="mt-3">
+                        Fast Process
+                    </h4>
+
+                    <p>
+                        Pengerjaan cepat dan tepat waktu.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <div class="feature-card">
+
+                    <i class="bi bi-shield-check feature-icon"></i>
+
+                    <h4 class="mt-3">
+                        Safe Material
+                    </h4>
+
+                    <p>
+                        Aman untuk semua jenis sepatu.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <div class="feature-card">
+
+                    <i class="bi bi-emoji-smile feature-icon"></i>
+
+                    <h4 class="mt-3">
+                        Best Service
+                    </h4>
+
+                    <p>
+                        Pelayanan ramah dan profesional.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- CONTACT -->
+<section class="py-5">
+
+    <div class="container">
+
+        <div class="contact-box text-center">
+
+            <h2 class="section-title">
+                CONTACT US
+            </h2>
+
+            <h4 class="fw-bold">
+                CLEANSMITH
+            </h4>
+
+            <div class="mt-4">
+
+                <p class="fs-5">
+                    <i class="bi bi-telephone-fill"></i>
+                    0815 1234 5678
+                </p>
+
+                <p class="fs-5">
+                    <i class="bi bi-envelope-fill"></i>
+                    cleansmith@gmail.com
+                </p>
+
+            </div>
+
+            <div class="mt-4">
+                <a href="https://www.tiktok.com/@clean.smith.shoes" target="_blank">
+                    <i class="bi bi-tiktok social-icon"></i>
+                </a>
+                <a href="https://www.instagram.com/cleansmithshoescare/" target="_blank">
+                    <i class="bi bi-instagram social-icon"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- STORE -->
+<section class="py-5">
+
+    <div class="container">
+
+        <div class="store-box">
+
+            <h2 class="text-center fw-bold mb-5">
+                OUR STORES
+            </h2>
+
+            <div class="row align-items-center">
+
+                <div class="col-md-5">
+
+                    <h3>
+                        <i class="bi bi-geo-alt-fill"></i>
+                        CLEAN SMITH BATAM
+                    </h3>
+
+                    <p class="mt-4 fs-5">
+
+                        Blok I No, Perumahan
+                        Jl. Sarman Raya No.12,
+                        Tj. Buntung, Kec. Batam Kota,
+                        Kota Batam, Kepulauan Riau 29432
+
+                    </p>
+
+                    <a
+                        href="https://www.google.com/maps/place/CLEAN+SMITH/@1.1615941,104.0287792,17z/data=!3m1!4b1!4m6!3m5!1s0x31d9896c50f8e1c1:0x6cff19daebf37a0!8m2!3d1.1615887!4d104.0313541!16s%2Fg%2F11x5h_w6wc?entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D"
+                        target="_blank"
+                        class="btn btn-light mt-3">
+
+                        <i class="bi bi-map"></i>
+                        Open Google Maps
+
+                    </a>
+
+                </div>
+
+                <div class="col-md-7">
+
+                    <div class="ratio ratio-16x9">
+
+                        <iframe
+                            src="https://www.google.com/maps?q=CLEAN+SMITH+Batam&output=embed"
+                            width="100%"
+                            height="450"
+                            style="border:0; border-radius:20px;"
+                            allowfullscreen=""
+                            loading="lazy">
+                        </iframe>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<footer>
+
+    © 2026 CleanSmith - Premium Shoe Cleaning Service
+
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

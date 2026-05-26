@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login - CleanSmith</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+
+        *{
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body{
+            background: linear-gradient(
+                135deg,
+                #dcecff,
+                #eef5ff
+            );
+
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .login-container{
+            height: 100vh;
+        }
+
+        .login-card{
+
+            width: 100%;
+            max-width: 420px;
+
+            background: rgba(255,255,255,0.7);
+
+            backdrop-filter: blur(10px);
+
+            border-radius: 30px;
+
+            padding: 50px 40px;
+
+            box-shadow:
+                0 10px 30px rgba(13,110,253,0.15);
+
+            position: relative;
+        }
+
+        .profile-icon{
+
+            width: 90px;
+            height: 90px;
+
+            background: white;
+
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            position: absolute;
+
+            top: -45px;
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .profile-icon i{
+            font-size: 45px;
+            color: #0d6efd;
+        }
+
+        .title{
+            font-weight: 700;
+            color: #0d6efd;
+        }
+
+        .subtitle{
+            color: #666;
+            font-size: 14px;
+        }
+
+        .form-control{
+
+            border-radius: 15px;
+
+            padding: 12px 15px;
+
+            border: 1px solid #c7dcff;
+        }
+
+        .form-control:focus{
+
+            border-color: #0d6efd;
+
+            box-shadow:
+                0 0 10px rgba(13,110,253,0.2);
+        }
+
+        .input-group-text{
+
+            border-radius: 15px 0 0 15px;
+
+            background: white;
+
+            border: 1px solid #c7dcff;
+        }
+
+        .btn-login{
+
+            background: linear-gradient(
+                135deg,
+                #0d6efd,
+                #5da9ff
+            );
+
+            border: none;
+
+            color: white;
+
+            padding: 12px;
+
+            border-radius: 15px;
+
+            font-weight: 600;
+
+            transition: 0.3s;
+        }
+
+        .btn-login:hover{
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 5px 15px rgba(13,110,253,0.3);
+        }
+
+        .social-btn{
+
+            width: 45px;
+            height: 45px;
+
+            border-radius: 50%;
+
+            border: none;
+
+            background: white;
+
+            box-shadow:
+                0 5px 10px rgba(0,0,0,0.08);
+
+            transition: 0.3s;
+        }
+
+        .social-btn:hover{
+
+            background: #0d6efd;
+            color: white;
+        }
+
+        .shoe-image{
+            width: 90%;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float{
+
+            0%{
+                transform: translateY(0px);
+            }
+
+            50%{
+                transform: translateY(-15px);
+            }
+
+            100%{
+                transform: translateY(0px);
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container login-container">
+
+    <div class="row align-items-center h-100">
+
+        <!-- LEFT -->
+        <div class="col-lg-6 d-none d-lg-block text-center">
+
+            <img
+                src="https://cdn-icons-png.flaticon.com/512/2589/2589594.png"
+                class="shoe-image">
+
+            <h1 class="fw-bold text-primary mt-4">
+                CleanSmith
+            </h1>
+
+            <p class="text-secondary fs-5">
+
+                Premium Shoe Cleaning Service
+
+            </p>
+
+        </div>
+
+        <!-- RIGHT -->
+        <div class="col-lg-6 d-flex justify-content-center">
+
+            <div class="login-card">
+
+                <!-- ICON -->
+                <div class="profile-icon">
+
+                    <i class="bi bi-person"></i>
+
+                </div>
+
+                <div class="text-center mt-4">
+
+                    <h2 class="title">
+                        Welcome Back
+                    </h2>
+
+                    <p class="subtitle">
+
+                        Login untuk melanjutkan ke akun Anda
+
+                    </p>
+
+                </div>
+
+                <!-- FORM -->
+                <form class="mt-4" onsubmit="login(event)">
+
+                    <!-- EMAIL -->
+                    <div class="mb-3">
+
+                        <div class="input-group">
+
+                            <span class="input-group-text">
+
+                                <i class="bi bi-envelope"></i>
+
+                            </span>
+
+                            <input
+                                type="email"
+                                id="email"
+                                class="form-control"
+                                placeholder="Email">
+
+                        </div>
+
+                    </div>
+
+                    <!-- PASSWORD -->
+                    <div class="mb-3">
+
+                        <div class="input-group">
+
+                            <span class="input-group-text">
+
+                                <i class="bi bi-lock"></i>
+
+                            </span>
+
+                            <input
+                                type="password"
+                                id="password"
+                                class="form-control"
+                                placeholder="Password">
+
+                        </div>
+
+                    </div>
+
+                    <!-- REMEMBER -->
+                    <div class="d-flex justify-content-between mb-4">
+
+                        <div class="form-check">
+
+                            <input
+                                class="form-check-input"
+                                type="checkbox">
+
+                            <label class="form-check-label">
+
+                                Remember me
+
+                            </label>
+
+                        </div>
+
+                        <a href="#"
+                            class="text-decoration-none">
+
+                            Forgot Password?
+
+                        </a>
+
+                    </div>
+
+                    <!-- BUTTON -->
+                    <button
+                        type="submit"
+                        class="btn btn-login w-100">
+
+                        LOGIN
+
+                    </button>
+
+                </form>
+
+                <!-- SOCIAL -->
+                <div class="text-center mt-4">
+
+                    <p class="text-secondary">
+
+                        Or login with
+
+                    </p>
+
+                    <div class="d-flex justify-content-center gap-3">
+
+                        <button class="social-btn">
+
+                            <i class="bi bi-google"></i>
+
+                        </button>
+
+                        <button class="social-btn">
+
+                            <i class="bi bi-facebook"></i>
+
+                        </button>
+
+                        <button class="social-btn">
+
+                            <i class="bi bi-apple"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <!-- REGISTER -->
+                <div class="text-center mt-4">
+
+                    <p>
+
+                        Don't have an account?
+
+                        <a href="#"
+                            class="text-decoration-none fw-bold">
+
+                            Register
+
+                        </a>
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<script>
+
+async function login(event){
+
+    event.preventDefault();
+
+    const email =
+        document.getElementById('email').value;
+
+    const password =
+        document.getElementById('password').value;
+
+    const response = await fetch('/login', {
+
+        method: 'POST',
+
+        headers: {
+            'Content-Type': 'application/json'
+        },
+
+        body: JSON.stringify({
+            email,
+            password
+        })
+    });
+
+    const result = await response.json();
+
+    console.log(result);
+
+    if(result.success){
+
+        alert('Login berhasil');
+
+        // simpan user login
+        localStorage.setItem(
+            'user',
+            JSON.stringify(result.user)
+        );
+
+        // pindah halaman
+        window.location.href = 'index.html';
+
+    }else{
+
+        alert(result.message);
+    }
+}
+
+</script>
+</body>
+</html>
