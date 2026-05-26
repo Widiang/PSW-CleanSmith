@@ -174,6 +174,95 @@
             color: #666;
         }
 
+        /* PROFILE NAVBAR */
+.profile-btn{
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    background: #f4f8ff;
+
+    padding: 6px 14px !important;
+
+    border-radius: 50px;
+
+    height: 48px;
+
+    transition: 0.3s;
+}
+.navbar-nav{
+
+    align-items: center;
+}
+
+.profile-btn:hover{
+
+    background: #e2eeff;
+}
+
+.profile-circle{
+
+    width: 42px;
+    height: 42px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0d6efd,
+            #5da9ff
+        );
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+
+    font-size: 18px;
+}
+
+.profile-text{
+
+    color: #666;
+    line-height: 1;
+}
+
+.profile-name{
+
+    font-weight: 600;
+    color: #111;
+    line-height: 1.2;
+}
+
+.profile-dropdown{
+
+    border: none;
+
+    border-radius: 18px;
+
+    padding: 10px;
+
+    box-shadow:
+        0 10px 25px rgba(0,0,0,0.08);
+}
+
+.profile-dropdown .dropdown-item{
+
+    border-radius: 12px;
+
+    font-weight: 500;
+
+    transition: 0.2s;
+}
+
+.profile-dropdown .dropdown-item:hover{
+
+    background: #eef5ff;
+}
+
     </style>
 
 </head>
@@ -232,49 +321,72 @@
                 </li>
 
                 <li class="nav-item dropdown d-none"
-                    id="profileNav">
+    id="profileNav">
 
-                    <a class="nav-link dropdown-toggle d-flex align-items-center gap-2"
-                        href="#"
-                        role="button"
-                        data-bs-toggle="dropdown">
+    <a class="nav-link profile-btn dropdown-toggle"
+        href="#"
+        role="button"
+        data-bs-toggle="dropdown">
 
-                        <i class="bi bi-person-circle fs-4"></i>
+        <div class="profile-circle">
 
-                        <span id="navbarUsername">
-                            User
-                        </span>
+            <i class="bi bi-person-fill"></i>
 
-                    </a>
+        </div>
 
-                    <ul class="dropdown-menu dropdown-menu-end">
+        <div class="d-flex flex-column justify-content-center text-start">
 
-                        <li>
+            <small class="profile-text">
+                Welcome
+            </small>
 
-                            <a class="dropdown-item"
-                                href="/profile.html">
+            <span id="navbarUsername"
+                class="profile-name">
 
-                                Profile
+                User
 
-                            </a>
+            </span>
 
-                        </li>
+        </div>
 
-                        <li>
+    </a>
 
-                            <button
-                                class="dropdown-item text-danger"
-                                onclick="logout()">
+    <ul class="dropdown-menu dropdown-menu-end profile-dropdown">
 
-                                Logout
+        <li>
 
-                            </button>
+            <a class="dropdown-item py-2"
+                href="/profile.html">
 
-                        </li>
+                <i class="bi bi-person me-2"></i>
+                Profile
 
-                    </ul>
+            </a>
 
-                </li>
+        </li>
+
+        <li>
+
+            <hr class="dropdown-divider">
+
+        </li>
+
+        <li>
+
+            <button
+                class="dropdown-item text-danger py-2"
+                onclick="logout()">
+
+                <i class="bi bi-box-arrow-right me-2"></i>
+                Logout
+
+            </button>
+
+        </li>
+
+    </ul>
+
+</li>
 
             </ul>
 
@@ -576,6 +688,56 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+
+const user =
+    JSON.parse(localStorage.getItem('user'));
+
+const loginNav =
+    document.getElementById('loginNav');
+
+const profileNav =
+    document.getElementById('profileNav');
+
+const navbarUsername =
+    document.getElementById('navbarUsername');
+
+
+// cek user login atau belum
+if(user){
+
+    // sembunyikan login
+    loginNav.classList.add('d-none');
+
+    // tampilkan profile
+    profileNav.classList.remove('d-none');
+
+    // tampilkan username
+    navbarUsername.innerText =
+        user.username;
+
+}else{
+
+    // tampilkan login
+    loginNav.classList.remove('d-none');
+
+    // sembunyikan profile
+    profileNav.classList.add('d-none');
+}
+
+
+// logout
+function logout(){
+
+    // hapus data login
+    localStorage.removeItem('user');
+
+    // refresh ke index
+    window.location.href = '/index.html';
+}
+
+</script>
 
 </body>
 </html>
